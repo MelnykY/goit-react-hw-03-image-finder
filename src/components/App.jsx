@@ -4,7 +4,7 @@ import { StyledApp } from './App.styled';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { fetchImages } from '../API/fetch';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Loader } from './Loader/Loader';
 import { Button } from './Button/Button';
@@ -35,7 +35,7 @@ handleSubmit = ({ query }, { resetForm }) => {
     }));
   };
 
-  async componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(_, prevState) {
     const { query, page } = this.state;
 
     if (prevState.query !== query || prevState.page !== page) {
@@ -91,17 +91,17 @@ handleSubmit = ({ query }, { resetForm }) => {
     }
   }
 
+
+
   render() {
     const { images, isLoading, isMore } = this.state;
     return (
       <StyledApp>
         <Searchbar onSubmit={this.handleSubmit} />
-        <ImageGallery
-          images={images}
-          handleCilck={this.handleCilck}
-        />
+        <ImageGallery images={images} handleCilck={this.handleCilck} />
         {isLoading && <Loader visible={isLoading} />}
         {isMore && <Button onClick={this.handleCilck} />}
+        <ToastContainer autoClose={2000} />
         <GlobalStyles />
       </StyledApp>
     );
